@@ -18,6 +18,7 @@ import { createAccount } from './routes/authentication/create-account'
 import { getAuthenticatedUserProfile } from './routes/authentication/get-authenticated-user-profile'
 import { requestPasswordRecover } from './routes/authentication/request-password-recover'
 import { resetPassword } from './routes/authentication/reset-password'
+import { getOrganizationBilling } from './routes/billing/get-organizaion-billing'
 import { acceptInvite } from './routes/invites/accept-invite'
 import { createInvite } from './routes/invites/create-invite'
 import { getInviteDetails } from './routes/invites/get-invite-details'
@@ -117,6 +118,8 @@ app.register(acceptInvite)
 app.register(rejectInvite)
 app.register(revokeInvite)
 app.register(getPendingInvites)
+
+app.register(getOrganizationBilling)
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGY4MzYzNS1jNmNiLTQyMGMtYjgwZS0wYWQ4MTAxMTM2ODkiLCJpYXQiOjE3MjE4NzI3ODUsImV4cCI6MTcyMjQ3NzU4NX0.5S6GucG0m3ObkHEm6IqBNjnWBYMB6bzYVwl0BwtwJeo
 
 app
