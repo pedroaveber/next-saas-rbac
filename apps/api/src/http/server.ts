@@ -19,6 +19,9 @@ import { getAuthenticatedUserProfile } from './routes/authentication/get-authent
 import { requestPasswordRecover } from './routes/authentication/request-password-recover'
 import { resetPassword } from './routes/authentication/reset-password'
 import { createOrganization } from './routes/organizations/create-organization'
+import { getMembership } from './routes/organizations/get-membership'
+import { getOrganizationDetails } from './routes/organizations/get-organization-details'
+import { getOrganizations } from './routes/organizations/get-organizations'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -71,7 +74,12 @@ app.register(authenticateWithGithub)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
 
+app.register(getMembership)
+app.register(getOrganizations)
+app.register(getOrganizationDetails)
 app.register(createOrganization)
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGY4MzYzNS1jNmNiLTQyMGMtYjgwZS0wYWQ4MTAxMTM2ODkiLCJpYXQiOjE3MjE4NzI3ODUsImV4cCI6MTcyMjQ3NzU4NX0.5S6GucG0m3ObkHEm6IqBNjnWBYMB6bzYVwl0BwtwJeo
 
 app
   .listen({
