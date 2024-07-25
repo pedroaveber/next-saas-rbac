@@ -44,5 +44,9 @@ export function defineAbilityFor(user: User) {
   const ability = builder.build({
     detectSubjectType: (item) => item.__typename,
   })
+
+  ability.can = ability.can.bind(ability)
+  ability.cannot = ability.cannot.bind(ability)
+
   return ability
 }
