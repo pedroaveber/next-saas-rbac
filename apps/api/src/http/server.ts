@@ -10,10 +10,15 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
+import { errorHandler } from './error-handler'
 import { authenticateWithPassword } from './routes/authentication/authenticate-with-password'
 import { createAccount } from './routes/authentication/create-account'
+import { getAuthenticatedUserProfile } from './routes/authentication/get-authenticated-user-profile'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
+
+// Error Handling
+app.setErrorHandler(errorHandler)
 
 // Json Web Token
 app.register(fastifyJwt, {
@@ -48,6 +53,7 @@ app.register(fastifyCors)
 // HTTP Routes
 app.register(createAccount)
 app.register(authenticateWithPassword)
+app.register(getAuthenticatedUserProfile)
 
 app
   .listen({
