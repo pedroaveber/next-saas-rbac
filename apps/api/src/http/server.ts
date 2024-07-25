@@ -23,6 +23,7 @@ import { getMembership } from './routes/organizations/get-membership'
 import { getOrganizationDetails } from './routes/organizations/get-organization-details'
 import { getOrganizations } from './routes/organizations/get-organizations'
 import { shutdownOrganization } from './routes/organizations/shutdown-organization'
+import { transferOrganizationOwnership } from './routes/organizations/transfer-organization-ownership'
 import { updateOrganization } from './routes/organizations/update-organization'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -82,6 +83,7 @@ app.register(getOrganizationDetails)
 app.register(createOrganization)
 app.register(updateOrganization)
 app.register(shutdownOrganization)
+app.register(transferOrganizationOwnership)
 
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGY4MzYzNS1jNmNiLTQyMGMtYjgwZS0wYWQ4MTAxMTM2ODkiLCJpYXQiOjE3MjE4NzI3ODUsImV4cCI6MTcyMjQ3NzU4NX0.5S6GucG0m3ObkHEm6IqBNjnWBYMB6bzYVwl0BwtwJeo
 
