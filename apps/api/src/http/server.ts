@@ -14,6 +14,8 @@ import { errorHandler } from './error-handler'
 import { authenticateWithPassword } from './routes/authentication/authenticate-with-password'
 import { createAccount } from './routes/authentication/create-account'
 import { getAuthenticatedUserProfile } from './routes/authentication/get-authenticated-user-profile'
+import { requestPasswordRecover } from './routes/authentication/request-password-recover'
+import { resetPassword } from './routes/authentication/reset-password'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -51,9 +53,11 @@ app.register(fastifySwaggerUI, {
 app.register(fastifyCors)
 
 // HTTP Routes
+app.register(getAuthenticatedUserProfile)
 app.register(createAccount)
 app.register(authenticateWithPassword)
-app.register(getAuthenticatedUserProfile)
+app.register(requestPasswordRecover)
+app.register(resetPassword)
 
 app
   .listen({
