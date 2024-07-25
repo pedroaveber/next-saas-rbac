@@ -11,6 +11,7 @@ import {
 } from 'fastify-type-provider-zod'
 
 import { errorHandler } from './error-handler'
+import { authenticateWithGithub } from './routes/authentication/authenticate-with-github'
 import { authenticateWithPassword } from './routes/authentication/authenticate-with-password'
 import { createAccount } from './routes/authentication/create-account'
 import { getAuthenticatedUserProfile } from './routes/authentication/get-authenticated-user-profile'
@@ -56,8 +57,11 @@ app.register(fastifyCors)
 app.register(getAuthenticatedUserProfile)
 app.register(createAccount)
 app.register(authenticateWithPassword)
+app.register(authenticateWithGithub)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
+
+// https://github.com/login/oauth/authorize?client_id=Ov23li4eZxHBjA4ezk3X&redirect_uri=http://localhost:3000/api/auth/callback&scope=user:email
 
 app
   .listen({
