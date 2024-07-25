@@ -18,6 +18,13 @@ import { createAccount } from './routes/authentication/create-account'
 import { getAuthenticatedUserProfile } from './routes/authentication/get-authenticated-user-profile'
 import { requestPasswordRecover } from './routes/authentication/request-password-recover'
 import { resetPassword } from './routes/authentication/reset-password'
+import { acceptInvite } from './routes/invites/accept-invite'
+import { createInvite } from './routes/invites/create-invite'
+import { getInviteDetails } from './routes/invites/get-invite-details'
+import { getInvites } from './routes/invites/get-invites'
+import { getPendingInvites } from './routes/invites/get-pending-invites'
+import { rejectInvite } from './routes/invites/reject-invite'
+import { revokeInvite } from './routes/invites/revoke-invite'
 import { getMembers } from './routes/members/get-members'
 import { removeMember } from './routes/members/remove-member'
 import { updateMember } from './routes/members/update-member'
@@ -102,6 +109,14 @@ app.register(updateProject)
 app.register(getMembers)
 app.register(updateMember)
 app.register(removeMember)
+
+app.register(createInvite)
+app.register(getInviteDetails)
+app.register(getInvites)
+app.register(acceptInvite)
+app.register(rejectInvite)
+app.register(revokeInvite)
+app.register(getPendingInvites)
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGY4MzYzNS1jNmNiLTQyMGMtYjgwZS0wYWQ4MTAxMTM2ODkiLCJpYXQiOjE3MjE4NzI3ODUsImV4cCI6MTcyMjQ3NzU4NX0.5S6GucG0m3ObkHEm6IqBNjnWBYMB6bzYVwl0BwtwJeo
 
 app
