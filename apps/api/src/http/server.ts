@@ -2,6 +2,7 @@ import { fastifyCors } from '@fastify/cors'
 import { fastifyJwt } from '@fastify/jwt'
 import { fastifySwagger } from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import { env } from '@saas/env'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
@@ -25,7 +26,7 @@ app.setErrorHandler(errorHandler)
 
 // Json Web Token
 app.register(fastifyJwt, {
-  secret: 'my-jwt-secret',
+  secret: env.JWT_SECRET,
 })
 
 // Type Provider
@@ -40,7 +41,15 @@ app.register(fastifySwagger, {
       description: 'Full-stack SaaS App with mult-tenant & RBAC',
       version: '1.0.0',
     },
-    servers: [],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   transform: jsonSchemaTransform,
 })
@@ -60,8 +69,6 @@ app.register(authenticateWithPassword)
 app.register(authenticateWithGithub)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
-
-// https://github.com/login/oauth/authorize?client_id=Ov23li4eZxHBjA4ezk3X&redirect_uri=http://localhost:3000/api/auth/callback&scope=user:email
 
 app
   .listen({
