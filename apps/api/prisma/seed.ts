@@ -13,13 +13,13 @@ async function seed() {
   const user = await prisma.user.create({
     data: {
       name: 'John Doe',
-      email: 'johndoe@acme.com',
-      avatarUrl: 'https://github.com/pedroalbertoveber.png',
+      email: 'john@acme.com',
+      avatarUrl: 'https://github.com/diego3g.png',
       passwordHash,
     },
   })
 
-  const user2 = await prisma.user.create({
+  const anotherUser = await prisma.user.create({
     data: {
       name: faker.person.fullName(),
       email: faker.internet.email(),
@@ -28,7 +28,7 @@ async function seed() {
     },
   })
 
-  const user3 = await prisma.user.create({
+  const anotherUser2 = await prisma.user.create({
     data: {
       name: faker.person.fullName(),
       email: faker.internet.email(),
@@ -40,8 +40,8 @@ async function seed() {
   await prisma.organization.create({
     data: {
       name: 'Acme Inc (Admin)',
-      slug: 'acme-inc-admin',
       domain: 'acme.com',
+      slug: 'acme-admin',
       avatarUrl: faker.image.avatarGitHub(),
       shouldAttachUsersByDomain: true,
       ownerId: user.id,
@@ -55,8 +55,8 @@ async function seed() {
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
                 user.id,
-                user2.id,
-                user3.id,
+                anotherUser.id,
+                anotherUser2.id,
               ]),
             },
             {
@@ -66,8 +66,8 @@ async function seed() {
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
                 user.id,
-                user2.id,
-                user3.id,
+                anotherUser.id,
+                anotherUser2.id,
               ]),
             },
             {
@@ -77,8 +77,8 @@ async function seed() {
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
                 user.id,
-                user2.id,
-                user3.id,
+                anotherUser.id,
+                anotherUser2.id,
               ]),
             },
           ],
@@ -92,11 +92,11 @@ async function seed() {
               role: 'ADMIN',
             },
             {
-              userId: user2.id,
+              userId: anotherUser.id,
               role: 'MEMBER',
             },
             {
-              userId: user3.id,
+              userId: anotherUser2.id,
               role: 'MEMBER',
             },
           ],
@@ -107,11 +107,9 @@ async function seed() {
 
   await prisma.organization.create({
     data: {
-      name: 'Acme Inc (Member)',
-      slug: 'acme-inc-member',
-      domain: 'acme.com',
+      name: 'Acme Inc (Billing)',
+      slug: 'acme-billing',
       avatarUrl: faker.image.avatarGitHub(),
-      shouldAttachUsersByDomain: true,
       ownerId: user.id,
       projects: {
         createMany: {
@@ -123,8 +121,8 @@ async function seed() {
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
                 user.id,
-                user2.id,
-                user3.id,
+                anotherUser.id,
+                anotherUser2.id,
               ]),
             },
             {
@@ -134,8 +132,8 @@ async function seed() {
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
                 user.id,
-                user2.id,
-                user3.id,
+                anotherUser.id,
+                anotherUser2.id,
               ]),
             },
             {
@@ -145,76 +143,8 @@ async function seed() {
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
                 user.id,
-                user2.id,
-                user3.id,
-              ]),
-            },
-          ],
-        },
-      },
-      members: {
-        createMany: {
-          data: [
-            {
-              userId: user.id,
-              role: 'MEMBER',
-            },
-            {
-              userId: user2.id,
-              role: 'ADMIN',
-            },
-            {
-              userId: user3.id,
-              role: 'MEMBER',
-            },
-          ],
-        },
-      },
-    },
-  })
-
-  await prisma.organization.create({
-    data: {
-      name: 'Acme Inc (BILLING)',
-      slug: 'acme-inc-billing',
-      domain: 'acme.com',
-      avatarUrl: faker.image.avatarGitHub(),
-      shouldAttachUsersByDomain: true,
-      ownerId: user.id,
-      projects: {
-        createMany: {
-          data: [
-            {
-              name: faker.lorem.words(5),
-              slug: faker.lorem.slug(5),
-              description: faker.lorem.paragraph(),
-              avatarUrl: faker.image.avatarGitHub(),
-              ownerId: faker.helpers.arrayElement([
-                user.id,
-                user2.id,
-                user3.id,
-              ]),
-            },
-            {
-              name: faker.lorem.words(5),
-              slug: faker.lorem.slug(5),
-              description: faker.lorem.paragraph(),
-              avatarUrl: faker.image.avatarGitHub(),
-              ownerId: faker.helpers.arrayElement([
-                user.id,
-                user2.id,
-                user3.id,
-              ]),
-            },
-            {
-              name: faker.lorem.words(5),
-              slug: faker.lorem.slug(5),
-              description: faker.lorem.paragraph(),
-              avatarUrl: faker.image.avatarGitHub(),
-              ownerId: faker.helpers.arrayElement([
-                user.id,
-                user2.id,
-                user3.id,
+                anotherUser.id,
+                anotherUser2.id,
               ]),
             },
           ],
@@ -228,11 +158,77 @@ async function seed() {
               role: 'BILLING',
             },
             {
-              userId: user2.id,
+              userId: anotherUser.id,
               role: 'ADMIN',
             },
             {
-              userId: user3.id,
+              userId: anotherUser2.id,
+              role: 'MEMBER',
+            },
+          ],
+        },
+      },
+    },
+  })
+
+  await prisma.organization.create({
+    data: {
+      name: 'Acme Inc (Member)',
+      slug: 'acme-member',
+      avatarUrl: faker.image.avatarGitHub(),
+      ownerId: user.id,
+      projects: {
+        createMany: {
+          data: [
+            {
+              name: faker.lorem.words(5),
+              slug: faker.lorem.slug(5),
+              description: faker.lorem.paragraph(),
+              avatarUrl: faker.image.avatarGitHub(),
+              ownerId: faker.helpers.arrayElement([
+                user.id,
+                anotherUser.id,
+                anotherUser2.id,
+              ]),
+            },
+            {
+              name: faker.lorem.words(5),
+              slug: faker.lorem.slug(5),
+              description: faker.lorem.paragraph(),
+              avatarUrl: faker.image.avatarGitHub(),
+              ownerId: faker.helpers.arrayElement([
+                user.id,
+                anotherUser.id,
+                anotherUser2.id,
+              ]),
+            },
+            {
+              name: faker.lorem.words(5),
+              slug: faker.lorem.slug(5),
+              description: faker.lorem.paragraph(),
+              avatarUrl: faker.image.avatarGitHub(),
+              ownerId: faker.helpers.arrayElement([
+                user.id,
+                anotherUser.id,
+                anotherUser2.id,
+              ]),
+            },
+          ],
+        },
+      },
+      members: {
+        createMany: {
+          data: [
+            {
+              userId: user.id,
+              role: 'MEMBER',
+            },
+            {
+              userId: anotherUser.id,
+              role: 'ADMIN',
+            },
+            {
+              userId: anotherUser2.id,
               role: 'MEMBER',
             },
           ],
@@ -243,5 +239,5 @@ async function seed() {
 }
 
 seed().then(() => {
-  console.log('🌿 Database was successfully seeded')
+  console.log('Database seeded!')
 })
