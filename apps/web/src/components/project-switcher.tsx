@@ -95,7 +95,7 @@ export function ProjectSwitcher() {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <Link href={`/org/${organizationSlug}/projects/create-project`}>
+          <Link href={`/org/${organizationSlug}/create-project`}>
             <PlusCircle className="text-primary mr-2 size-4" />
             Create new
           </Link>
